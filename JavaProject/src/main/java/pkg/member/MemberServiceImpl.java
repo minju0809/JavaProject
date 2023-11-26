@@ -34,4 +34,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.edit(vo);
 	}
 
+	@Override
+	public int memberCount() {
+		return dao.memberCount();
+	}
+
 }

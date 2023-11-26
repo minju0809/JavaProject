@@ -13,8 +13,25 @@ public class MemberDaoImpl implements MemberDao {
 
 	@Override
 	public void insert(MemberVO vo) {
-		// TODO Auto-generated method stub
-		
+		try {
+			conn = DBConnection.getConnection();
+			String insert_sql = "insert into member (memberCount, id, password, age, phone, area, desired_field, study_period, photo) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			pstmt = conn.prepareStatement(insert_sql);
+			pstmt.setInt(1, vo.getMemberCount());
+			pstmt.setString(2, vo.getId());
+			pstmt.setString(3, vo.getPassword());
+			pstmt.setString(4, vo.getAge());
+			pstmt.setString(5, vo.getPhone());
+			pstmt.setString(6, vo.getArea());
+			pstmt.setString(7, vo.getDesired_field());
+			pstmt.setString(8, vo.getStudy_period());
+			pstmt.setString(9, vo.getPhoto());
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -30,17 +47,36 @@ public class MemberDaoImpl implements MemberDao {
 	}
 
 	@Override
+	public int memberCount() {
+		int memberCount = 1;
+		try {
+			conn = DBConnection.getConnection();
+			String select_sql = "select max(memberCount)+1 as memberCount from member";
+			pstmt = conn.prepareStatement(select_sql);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				memberCount = rs.getInt("memberCount");
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return memberCount;
+	}
+
+	@Override
 	public List<MemberVO> select(MemberVO vo) {
 		System.out.println("select 확인");
 		List<MemberVO> li = new ArrayList<>();
 		try {
 			conn = DBConnection.getConnection();
-			String select_sql = "select * from member";
+			String select_sql = "select * from member order by memberCount desc";
 			pstmt = conn.prepareStatement(select_sql);
 			rs = pstmt.executeQuery();
 			MemberVO memberVO = null;
 			while(rs.next()) {
 				memberVO = new MemberVO();
+				memberVO.setMemberCount(rs.getInt("memberCount"));
 				memberVO.setId(rs.getString("id"));
 				memberVO.setPassword(rs.getString("password"));
 				memberVO.setAge(rs.getString("age"));
@@ -52,7 +88,7 @@ public class MemberDaoImpl implements MemberDao {
 				memberVO.setGrade(rs.getString("grade"));
 				memberVO.setJoin_date(rs.getString("join_date"));
 				li.add(memberVO);
-				System.out.println("@@@ li: "+li);
+				System.out.println("@@@ vo: "+memberVO);
 			}
 			
 		} catch (Exception e) {
@@ -68,5 +104,6 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }

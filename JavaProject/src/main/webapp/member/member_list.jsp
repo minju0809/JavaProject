@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java"
     pageEncoding="UTF-8"%>
     
-<%@ include file="../include/top.jsp" %>
+<%@ include file="/include/top.jsp" %>
 
 <% 
 List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
@@ -14,7 +14,7 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 			<tr>
 				<th>순번</th>
 				<th>이미지</th>
-				<th>성명</th>
+				<th>아이디</th>
 				<th>비밀번호</th>
 				<th>나이</th>
 				<th>전화번호</th>
@@ -24,10 +24,9 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 				<th>등급</th>
 				<th>가입일자</th>
 			</tr>
-			<tr>
 			<% 
-			int count = 0;
 			for (MemberVO vo : li) { 
+				int memberCount = vo.getMemberCount();
 				String photo = vo.getPhoto();
 				String id = vo.getId();
 				String password = vo.getPassword();
@@ -36,11 +35,12 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 				String area = vo.getArea();
 				String desired_field = vo.getDesired_field();
 				String study_period = vo.getStudy_period();
-				String grade2 = vo.getGrade();
-				String join_date = vo.getJoin_date();
+				String grade = vo.getGrade();
+				String join_date = vo.getJoin_date().substring(0, 19);
 			%>
-				<td><%=count + 1 %></td>
-				<td><%=photo %></td>
+			<tr>
+				<td><%=memberCount %></td>
+				<td><img src="<%=path %>/files/<%=photo %>" width=50 height=50></td>
 				<td><%=id %></td>
 				<td><%=password %></td>
 				<td><%=age %></td>
@@ -50,14 +50,10 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 				<td><%=study_period %></td>
 				<td><%=grade %></td>
 				<td><%=join_date %></td>
-			<% } %>
 			</tr>
+			<% } %>
 		</table>
 	</div>
-	<div>
-		<a href="./index.jsp">Home</a>
-	</div>
-
 </section>
-</body>
-</html>
+
+<%@ include file="/include/bottom.jsp" %>

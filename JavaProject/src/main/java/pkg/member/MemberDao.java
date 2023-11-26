@@ -7,6 +7,10 @@ public interface MemberDao {
 	void update(MemberVO vo);
 	void delete(MemberVO vo);
 	
+	int memberCount();
+	
 	List<MemberVO> select(MemberVO vo);
 	MemberVO edit(MemberVO vo);
+	
+	
 }

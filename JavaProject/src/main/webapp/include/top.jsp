@@ -3,12 +3,19 @@
 <%@ page import="pkg.member.*" %>
 <%@ page import="java.util.*" %>
 
+<%
+String path = request.getContextPath();
+
+String login_id = (String) session.getAttribute("id"); 
+String login_grade = (String) session.getAttribute("grade"); 
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Developer Project</title>
-<link rel="stylesheet" type="text/css" href="./css/style.css">
+<link rel="stylesheet" type="text/css" href="<%=path %>/css/style.css">
 </head>
 <body>
 	<header>
@@ -16,25 +23,29 @@
 	</header>
 	<nav>
 		<% 
-		String grade = "A";
-		
-		if(grade.equals("C")) {
+		if(login_id == null) {
 		%>
-		<a href="./index.jsp">홈으로</a>
-		<a href="">로그인</a>
+		<a href="<%=path %>/index.jsp">홈으로</a>
+		<a href="<%=path %>/login/login.jsp">로그인</a>
+		<a href="<%=path %>/MemberController?sw=F">회원가입</a>
 		<% 
-		} else if (grade.equals("B")) {
+		} else {
+			if (login_grade.equals("A")) {
 		%>
-		
-		<a href="./index.jsp">홈으로</a>
-		<a href="">공부게시판</a>
-		<a href="">아이디(로그아웃)</a>		
+			<a href="<%=path %>/index.jsp">홈으로</a>
+			<a href="<%=path %>/MemberController?sw=F">회원등록</a>
+			<a href="<%=path %>/MemberController?sw=S">회원목록</a>
+			<a href="">공부게시판</a>
+			<a href="<%=path%>/LoginController?sw=logout"><%=login_id %>(logout)</a>
 		<% 
-		} else if (grade.equals("A")) {
+			} else if (login_grade.equals("C")) {
 		%>
-		<a href="./index.jsp">홈으로</a>
-		<a href="./Controller">회원목록</a>
-		<a href="">공부게시판</a>
-		<a href="">아이디(로그아웃)</a>
-		<% } %>
+			<a href="<%=path %>/index.jsp">홈으로</a>
+			<a href="">공부게시판</a>
+			<a href="<%=path%>/LoginController?sw=logout"><%=login_id %>(logout)</a>	
+		<%
+			} 
+		}
+		
+		%>
 	</nav>
