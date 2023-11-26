@@ -5,7 +5,6 @@
 
 <% 
 List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
-
 %>
 <section>
 	<div>
@@ -32,7 +31,7 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 				String password = vo.getPassword();
 				String age = vo.getAge();
 				String phone = vo.getPhone();
-				String area = vo.getArea();
+				String region = vo.getRegion();
 				String desired_field = vo.getDesired_field();
 				String study_period = vo.getStudy_period();
 				String grade = vo.getGrade();
@@ -45,7 +44,7 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 				<td><%=password %></td>
 				<td><%=age %></td>
 				<td><%=phone %></td>
-				<td><%=area %></td>
+				<td><%=region %></td>
 				<td><%=desired_field %></td>
 				<td><%=study_period %></td>
 				<td><%=grade %></td>

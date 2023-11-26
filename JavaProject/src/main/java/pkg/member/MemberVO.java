@@ -11,7 +11,7 @@ public class MemberVO {
 	private String password;
 	private String age;
 	private String phone;
-	private String area;
+	private String region;
 	private String desired_field;
 	private String study_period;
 	private String photo;

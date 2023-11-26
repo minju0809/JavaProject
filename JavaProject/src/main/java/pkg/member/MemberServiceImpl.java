@@ -8,6 +8,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberServiceImpl () {
 		dao = new MemberDaoImpl();
 	}
+
+	@Override
+	public boolean isIdDuplicated(String id) {
+		return dao.isIdDuplicated(id);
+	}
+
 	
 	@Override
 	public void insert(MemberVO vo) {

@@ -10,19 +10,41 @@ public class MemberDaoImpl implements MemberDao {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	
+
+	@Override
+	public boolean isIdDuplicated(String id) {
+		try {
+            conn = DBConnection.getConnection();
+            String select_sql = "select count(*) as count from member where id = ?";
+            pstmt = conn.prepareStatement(select_sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt("count");
+                return count > 0; // count가 0보다 크면 이미 존재하는 것으로 판단
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+        	DBConnection.close(rs, pstmt, conn);
+        }
+        return false;
+	}
 
 	@Override
 	public void insert(MemberVO vo) {
 		try {
 			conn = DBConnection.getConnection();
-			String insert_sql = "insert into member (memberCount, id, password, age, phone, area, desired_field, study_period, photo) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			String insert_sql = "insert into member (memberCount, id, password, age, phone, region, desired_field, study_period, photo) values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(insert_sql);
 			pstmt.setInt(1, vo.getMemberCount());
 			pstmt.setString(2, vo.getId());
 			pstmt.setString(3, vo.getPassword());
 			pstmt.setString(4, vo.getAge());
 			pstmt.setString(5, vo.getPhone());
-			pstmt.setString(6, vo.getArea());
+			pstmt.setString(6, vo.getRegion());
 			pstmt.setString(7, vo.getDesired_field());
 			pstmt.setString(8, vo.getStudy_period());
 			pstmt.setString(9, vo.getPhoto());
@@ -31,7 +53,9 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} finally {
+        	DBConnection.close(pstmt, conn);
+        }
 	}
 
 	@Override
@@ -60,9 +84,11 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} finally {
+        	DBConnection.close(rs, pstmt, conn);
+        }
 		return memberCount;
-	}
+	} 
 
 	@Override
 	public List<MemberVO> select(MemberVO vo) {
@@ -81,7 +107,7 @@ public class MemberDaoImpl implements MemberDao {
 				memberVO.setPassword(rs.getString("password"));
 				memberVO.setAge(rs.getString("age"));
 				memberVO.setPhone(rs.getString("phone"));
-				memberVO.setArea(rs.getString("area"));
+				memberVO.setRegion(rs.getString("region"));
 				memberVO.setDesired_field(rs.getString("desired_field"));
 				memberVO.setStudy_period(rs.getString("study_period"));
 				memberVO.setPhoto(rs.getString("photo"));
@@ -94,7 +120,9 @@ public class MemberDaoImpl implements MemberDao {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} finally {
+        	DBConnection.close(rs, pstmt, conn);
+        }
 		
 		return li;
 	}
@@ -104,6 +132,7 @@ public class MemberDaoImpl implements MemberDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 }

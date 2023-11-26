@@ -1,6 +1,7 @@
 package pkg.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -43,7 +44,7 @@ public class MemberController extends HttpServlet {
 		String sw = request.getParameter("sw");
 
 		MemberService service = new MemberServiceImpl();
-		
+
 		MemberVO vo = null;
 
 //		String id = request.getParameter("id");
@@ -77,56 +78,66 @@ public class MemberController extends HttpServlet {
 
 			RequestDispatcher rd = request.getRequestDispatcher("./member/member_list.jsp");
 			rd.forward(request, response);
-			
+
 		} else if (sw.equals("F")) {
-			
+
 			int memberCount = service.memberCount();
 			request.setAttribute("memberCount", memberCount);
-			
+
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/member/member_form.jsp");
 			dispatcher.forward(request, response);
-			
+
 		} else if (sw.equals("I")) {
-			
+
 			String realF = getServletContext().getRealPath("/files/");
 			int maxS = 1024 * 1024 * 5;
 			String encT = "UTF-8";
-			
+
 			DefaultFileRenamePolicy DefaultF = new DefaultFileRenamePolicy();
 
 			MultipartRequest multi = new MultipartRequest(request, realF, maxS, encT, DefaultF);
-			
+
 			int memberCount = Integer.parseInt(multi.getParameter("memberCount"));
 			String id = multi.getParameter("id");
 			String password = multi.getParameter("password");
 			String age = multi.getParameter("age");
 			String phone = multi.getParameter("phone");
-			String area = multi.getParameter("area");
+			String region = multi.getParameter("region");
 			String desired_field = multi.getParameter("desired_field");
 			String study_period = multi.getParameter("study_period");
 			String photo = multi.getFilesystemName("photo");
-			
+
 			if (photo == null) {
 				photo = "space.png";
 			}
-			
-			vo = new MemberVO();
-			vo.setMemberCount(memberCount);
-			vo.setId(id);
-			vo.setPassword(password);
-			vo.setAge(age);
-			vo.setPhone(phone);
-			vo.setArea(area);
-			vo.setDesired_field(desired_field);
-			vo.setStudy_period(study_period);
-			vo.setPhoto(photo);
-			
-			service.insert(vo);
-			
-			response.sendRedirect(path+"/MemberController?sw=S");
-			
+
+			if (service.isIdDuplicated(id)) {
+			    // 이미 존재하는 ID라면 사용자에게 알림
+			    response.setContentType("text/html; charset=UTF-8");
+                try (PrintWriter out = response.getWriter()) {
+                    out.println("<script>alert('이미 있는 아이디입니다.'); window.location.href='" + path + "/MemberController?sw=F';</script>");
+                }
+			} else {
+			    vo = new MemberVO();
+			    vo.setMemberCount(memberCount);
+			    vo.setId(id);
+			    vo.setPassword(password);
+			    vo.setAge(age);
+			    vo.setPhone(phone);
+			    vo.setRegion(region);
+			    vo.setDesired_field(desired_field);
+			    vo.setStudy_period(study_period);
+			    vo.setPhoto(photo);
+
+			    service.insert(vo);
+
+			    response.sendRedirect(path + "/MemberController?sw=S");
+			}
+
+		} else if (sw.equals("E")) {
+
 		}
- 
+
 	}
 
 	/**
