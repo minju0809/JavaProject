@@ -17,4 +17,29 @@ public class MemberVO {
 	private String photo;
 	private String grade;
 	private String join_date;
+
+//	public String getPassword() {
+//		return password != null ? password : "";
+//	}
+//
+//	public String getAge() {
+//		return age != null ? age : "";
+//	}
+//
+//	public String getPhone() {
+//		return phone != null ? phone : "";
+//	}
+//
+//	public String getRegion() {
+//		return region != null ? region : "";
+//	}
+//
+//	public String getDesired_field() {
+//		return desired_field != null ? desired_field : "";
+//	}
+//
+//	public String getStudy_period() {
+//		return study_period != null ? study_period : "";
+//	}
+
 }

@@ -1,5 +1,6 @@
 package pkg.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -45,31 +46,11 @@ public class MemberController extends HttpServlet {
 
 		MemberService service = new MemberServiceImpl();
 
-		MemberVO vo = null;
+		MemberVO vo = new MemberVO();
 
-//		String id = request.getParameter("id");
-//		String password = request.getParameter("password");
-//		String age = request.getParameter("age");
-//		String phone = request.getParameter("phone");
-//		String area = request.getParameter("area");
-//		String desired_field = request.getParameter("desired_field");
-//		String study_period = request.getParameter("study_period");
-//		String photo = request.getParameter("photo");
-//		String grade = request.getParameter("grade");
-//		String join_date = request.getParameter("join_date");
-//		
-//		
-//		MemberVO memberVO = new MemberVO();
-//		memberVO.setId(id);
-//		memberVO.setPassword(password);
-//		memberVO.setAge(age);
-//		memberVO.setPhone(phone);
-//		memberVO.setArea(area);
-//		memberVO.setDesired_field(desired_field);
-//		memberVO.setStudy_period(study_period);
-//		memberVO.setPhoto(photo);
-//		memberVO.setGrade(grade);
-//		memberVO.setJoin_date(join_date);
+		String realF = getServletContext().getRealPath("/files/");
+		int maxS = 5 * 1024 * 1024;
+		String encT = "utf-8";
 
 		if (sw.equals("S")) {
 
@@ -88,10 +69,6 @@ public class MemberController extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} else if (sw.equals("I")) {
-
-			String realF = getServletContext().getRealPath("/files/");
-			int maxS = 1024 * 1024 * 5;
-			String encT = "UTF-8";
 
 			DefaultFileRenamePolicy DefaultF = new DefaultFileRenamePolicy();
 
@@ -112,32 +89,104 @@ public class MemberController extends HttpServlet {
 			}
 
 			if (service.isIdDuplicated(id)) {
-			    // 이미 존재하는 ID라면 사용자에게 알림
-			    response.setContentType("text/html; charset=UTF-8");
-                try (PrintWriter out = response.getWriter()) {
-                    out.println("<script>alert('이미 있는 아이디입니다.'); window.location.href='" + path + "/MemberController?sw=F';</script>");
-                }
+				// 이미 존재하는 ID라면 사용자에게 알림
+				response.setContentType("text/html; charset=UTF-8");
+				try (PrintWriter out = response.getWriter()) {
+					out.println("<script>alert('이미 있는 아이디입니다.'); window.location.href='" + path
+							+ "/MemberController?sw=F';</script>");
+				}
 			} else {
-			    vo = new MemberVO();
-			    vo.setMemberCount(memberCount);
-			    vo.setId(id);
-			    vo.setPassword(password);
-			    vo.setAge(age);
-			    vo.setPhone(phone);
-			    vo.setRegion(region);
-			    vo.setDesired_field(desired_field);
-			    vo.setStudy_period(study_period);
-			    vo.setPhoto(photo);
+				vo = new MemberVO();
+				vo.setMemberCount(memberCount);
+				vo.setId(id);
+				vo.setPassword(password);
+				vo.setAge(age);
+				vo.setPhone(phone);
+				vo.setRegion(region);
+				vo.setDesired_field(desired_field);
+				vo.setStudy_period(study_period);
+				vo.setPhoto(photo);
 
-			    service.insert(vo);
+				service.insert(vo);
 
-			    response.sendRedirect(path + "/MemberController?sw=S");
+				response.sendRedirect(path + "/MemberController?sw=S");
 			}
 
 		} else if (sw.equals("E")) {
 
-		}
+			String id = request.getParameter("id");
+			
+			MemberVO m = service.edit(id);
+			System.out.println("controller m: " + m);
+			request.setAttribute("m", m);
 
+			RequestDispatcher rd = request.getRequestDispatcher("/member/member_edit.jsp");
+			rd.forward(request, response);
+
+		} else if (sw.equals("D")) {
+			System.out.println("delete check");
+
+			String id = request.getParameter("id");
+
+			String photo = service.selectFileName(id);
+			System.out.println("삭제 파일 명: " + photo);
+
+			String delFile = realF + photo;
+			System.out.println("수정 시 삭제 할 파일경로와 이름: " + delFile);
+			File f = new File(delFile);
+
+			if (f.exists()) {
+				if (!photo.equals("space.png")) {
+					f.delete();
+				}
+			}
+			service.delete(id);
+
+			response.sendRedirect("MemberController?sw=S");
+
+		} else if (sw.equals("U")) {
+//			DefaultFileRenamePolicy DefaultF = new DefaultFileRenamePolicy();
+//
+//			MultipartRequest multi = new MultipartRequest(request, realF, maxS, encT, DefaultF);
+//
+//			String id = multi.getParameter("id");
+//			String password = multi.getParameter("password");
+//			String age = multi.getParameter("age");
+//			String phone = multi.getParameter("phone");
+//			String region = multi.getParameter("region");
+//			String desired_field = multi.getParameter("desired_field");
+//			String study_period = multi.getParameter("study_period");
+//			String photo = multi.getFilesystemName("photo");
+//
+//			if (photo == null) {
+//				photo = "space.png";
+//			}
+//
+//			vo.setId(id);
+//			vo.setPassword(password);
+//			vo.setAge(age);
+//			vo.setPhone(phone);
+//			vo.setRegion(region);
+//			vo.setDesired_field(desired_field);
+//			vo.setStudy_period(study_period);
+//			vo.setPhoto(photo);
+//			
+//			MemberVO m = service.edit(vo);
+//			String delPhoto = m.getPhoto();
+//
+//			String delFile = realF + delPhoto;
+//
+//			System.out.println("수정 시 삭제 할 파일경로와 이름: " + delFile);
+//			File file = new File(delFile);
+//
+//			if (!delPhoto.equals("space.png")) {
+//				file.delete();
+//			}
+//			
+//			service.update(vo);
+//
+//			response.sendRedirect(path + "/MemberController?sw=S");
+		}
 	}
 
 	/**

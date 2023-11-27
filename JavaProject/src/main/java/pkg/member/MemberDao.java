@@ -7,12 +7,13 @@ public interface MemberDao {
 	
 	void insert(MemberVO vo);
 	void update(MemberVO vo);
-	void delete(MemberVO vo);
+	void delete(String id);
+	String selectFileName(String id);
 	
 	int memberCount();
 	
 	List<MemberVO> select(MemberVO vo);
-	MemberVO edit(MemberVO vo);
+	MemberVO edit(String id);
 	
 	
 }

@@ -26,8 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public void delete(MemberVO vo) {
-		dao.delete(vo);
+	public void delete(String id) {
+		dao.delete(id);
 	}
 
 	@Override
@@ -36,13 +36,18 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public MemberVO edit(MemberVO vo) {
-		return dao.edit(vo);
+	public MemberVO edit(String id) {
+		return dao.edit(id);
 	}
 
 	@Override
 	public int memberCount() {
 		return dao.memberCount();
+	}
+
+	@Override
+	public String selectFileName(String id) {
+		return dao.selectFileName(id);
 	}
 
 }

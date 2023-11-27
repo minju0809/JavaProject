@@ -42,6 +42,7 @@ String login_grade = (String) session.getAttribute("grade");
 		%>
 			<a href="<%=path %>/index.jsp">홈으로</a>
 			<a href="">공부게시판</a>
+			<a href="<%=path %>/MemberController?sw=E&id=<%=login_id %>">정보수정</a>
 			<a href="<%=path%>/LoginController?sw=logout"><%=login_id %>(logout)</a>	
 		<%
 			} 
