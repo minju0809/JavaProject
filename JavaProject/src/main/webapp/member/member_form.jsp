@@ -57,15 +57,7 @@ int memberCount = (int) request.getAttribute("memberCount");
 			</tr>
 			<tr>
 				<th>취업분야</th>
-				<td>
-					<label><input type="checkbox" name="desired_field" value="프론트엔드">프론트엔드</label>
-			        <label><input type="checkbox" name="desired_field" value="백엔드">백엔드</label>
-			        <label><input type="checkbox" name="desired_field" value="기획">기획</label>
-			        <label><input type="checkbox" name="desired_field" value="디자인">디자인</label>
-			        <label><input type="checkbox" name="desired_field" value="AI">AI</label>
-			        <label><input type="checkbox" name="desired_field" value="데이터 분석">데이터 분석</label>
-			        <label><input type="checkbox" name="desired_field" value="기타">기타</label>
-				</td>
+				<td><input type="text" name="desired_field"></td>
 			</tr>
 			<tr>
 				<th>공부기간</th>

@@ -8,7 +8,7 @@ public interface MemberService {
 	void insert(MemberVO vo);
 	void update(MemberVO vo);
 	void delete(String id);
-	String selectFileName(String id);
+//	String selectFileName(String id);
 	
 	int memberCount();
 	

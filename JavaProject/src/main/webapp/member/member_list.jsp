@@ -12,7 +12,6 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 		<table border=1>
 			<tr>
 				<th>순번</th>
-				<th>이미지</th>
 				<th>아이디</th>
 				<th>비밀번호</th>
 				<th>나이</th>
@@ -23,7 +22,6 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 			<% 
 			for (MemberVO vo : li) { 
 				int memberCount = vo.getMemberCount();
-				String photo = vo.getPhoto();
 				String id = vo.getId();
 				String password = vo.getPassword();
 				String age = vo.getAge();
@@ -33,7 +31,6 @@ List<MemberVO> li = (List<MemberVO>) request.getAttribute("li");
 			%>
 			<tr>
 				<td><%=memberCount %></td>
-				<td><img src="<%=path %>/files/<%=photo %>" width=50 height=50></td>
 				<td><a href="<%=path %>/MemberController?sw=E&id=<%=id %>"><%=id %></a></td>
 				<td><%=password %></td>
 				<td><%=age %></td>

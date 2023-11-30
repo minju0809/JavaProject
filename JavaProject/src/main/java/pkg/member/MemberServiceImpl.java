@@ -45,9 +45,9 @@ public class MemberServiceImpl implements MemberService {
 		return dao.memberCount();
 	}
 
-	@Override
-	public String selectFileName(String id) {
-		return dao.selectFileName(id);
-	}
+//	@Override
+//	public String selectFileName(String id) {
+//		return dao.selectFileName(id);
+//	}
 
 }

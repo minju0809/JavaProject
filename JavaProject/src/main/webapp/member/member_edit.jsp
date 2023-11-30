@@ -4,20 +4,16 @@
 
 <%
 MemberVO m = (MemberVO) request.getAttribute("m");
-System.out.println("@@@@@@@@ edit" + m);
 %>
 
 <section>
 	<div>
 		<h2>회원목록</h2>
-		<form action="<%=path%>/MemberController?sw=U" method=post
-			enctype="multipart/form-data">
+		<form action="<%=path%>/MemberController">
 			<input type=hidden name=sw value="U"> 
-			<input type=hidden name=id value="<%=m.getId()%>">
 			<table border=1>
 				<%
 				int memberCount = m.getMemberCount();
-				String photo = m.getPhoto();
 				String id = m.getId();
 				String password = m.getPassword();
 				String age = m.getAge();
@@ -29,59 +25,53 @@ System.out.println("@@@@@@@@ edit" + m);
 				String join_date = m.getJoin_date().substring(0, 19);
 				%>
 				<tr>
-					<td rowspan=11><img src="<%=path%>/files/<%=photo%>" width=100
-						height=100></td>
 					<th>순번</th>
-					<td><input type=text value="<%=memberCount%>"
+					<td><input type=text name="memberCount" value="<%=memberCount%>"
 						readonly></td>
 				</tr>
 				<tr>
 					<th>아이디</th>
-					<td><input type=text value="<%=id%>" readonly></td>
+					<td><input type=text name="id" value="<%=id%>" readonly></td>
 				</tr>
 				<tr>
 					<th>비밀번호</th>
-					<td><input type=text value="<%=password%>"></td>
+					<td><input type=text name="password" value="<%=password%>"></td>
 				</tr>
 				<tr>
 					<th>나이</th>
-					<td><input type=text value="<%=age%>"></td>
+					<td><input type=text name="age" value="<%=age%>"></td>
 				</tr>
 				<tr>
 					<th>연락처</th>
-					<td><input type=text value="<%=phone%>"></td>
+					<td><input type=text name="phone" value="<%=phone%>"></td>
 				</tr>
 				<tr>
 					<th>지역</th>
-					<td><input type=text value="<%=region%>"></td>
+					<td><input type=text name="region" value="<%=region%>"></td>
 				</tr>
 				<tr>
 					<th>취업분야</th>
-					<td><input type=text value="<%=desired_field%>"></td>
+					<td><input type=text name="desired_field" value="<%=desired_field%>"></td>
 				</tr>
 				<tr>
 					<th>공부기간</th>
-					<td><input type=text value="<%=study_period%>"></td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td><input type=file name=photo></td>
+					<td><input type=text name="study_period" value="<%=study_period%>"></td>
 				</tr>
 				<%
 				if (login_grade.equals("A")) {
 				%>
 				<tr>
 					<th>등급</th>
-					<td><input type=text value="<%=grade%>"></td>
+					<td><input type=text name="grade" value="<%=grade%>"></td>
 				</tr>
 				<tr>
 					<th>가입일자</th>
-					<td><input type=text value="<%=join_date%>"></td>
+					<td><input type=text name="join_date" value="<%=join_date%>"></td>
 				</tr>
 				<tr>
-					<td colspan=3 align=center><input type=submit value="수정하기">
-						<input type=button value="삭제하기"
-						onClick="confirmDelete('<%=path%>/MemberController?sw=D&id=<%=id%>')">
+					<td colspan=3 align=center>
+						<input type=submit value="수정하기">
+						<input type=button value="삭제하기" onClick="confirmDelete('<%=path%>/MemberController?sw=D&id=<%=id%>')">
 					</td>
 				</tr>
 				<%
@@ -89,11 +79,11 @@ System.out.println("@@@@@@@@ edit" + m);
 				%>
 				<tr>
 					<th>등급</th>
-					<td><input type=text value="회원" readonly></td>
+					<td><input type=text name="회원" value="회원" readonly></td>
 				</tr>
 				<tr>
 					<th>가입일자</th>
-					<td><input type=text value="<%=join_date%>" readonly></td>
+					<td><input type=text name="join_date" value="<%=join_date%>" readonly></td>
 				</tr>
 				<tr>
 					<td colspan=3 align=center><input type=submit value="수정하기">
