@@ -194,7 +194,6 @@ public class MemberDaoImpl implements MemberDao {
 				m.setStudy_period(rs.getString("study_period"));
 				m.setGrade(rs.getString("grade"));
 				m.setJoin_date(rs.getString("join_date"));
-				System.out.println("dao edit" + m);
 			}
 
 		} catch (Exception e) {
