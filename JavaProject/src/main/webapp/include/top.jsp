@@ -38,6 +38,7 @@ String login_grade = (String) session.getAttribute("grade");
 			<a href="<%=path %>/MemberController?sw=F">회원등록</a>
 			<a href="<%=path %>/MemberController?sw=S">회원목록</a>
 			<a href="<%=path %>/basicBoard/basicBoard_form.jsp">기본게시판게시글등록</a>
+			<a href="<%=path %>/BasicBoardController?sw=S">기본게시판목록</a>
 			<a href="<%=path %>/StudyBoardController?sw=S">공부게시판</a>
 			<a href="<%=path %>/LoginController?sw=logout"><%=login_id %>(logout)</a>
 		<% 
@@ -45,6 +46,7 @@ String login_grade = (String) session.getAttribute("grade");
 		%>
 			<a href="<%=path %>/index.jsp">홈으로</a>
 			<a href="<%=path %>/BasicBoardController?sw=I">기본게시판게시글등록</a>
+			<a href="<%=path %>/BasicBoardController?sw=S">기본게시판목록</a>
 			<a href="<%=path %>/StudyBoardController?sw=S">공부게시판</a>
 			<a href="<%=path %>/MemberController?sw=E&id=<%=login_id %>">정보수정</a>
 			<a href="<%=path %>/LoginController?sw=logout"><%=login_id %>(logout)</a>	

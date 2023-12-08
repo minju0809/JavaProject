@@ -1,5 +1,7 @@
 package pkg.basicBoard;
 
+import java.util.List;
+
 public class BasicBoardServiceImpl implements BasicBoardService {
 	BasicBoardDao dao = null;
 	
@@ -10,6 +12,11 @@ public class BasicBoardServiceImpl implements BasicBoardService {
 	@Override
 	public void insert(BasicBoardVO vo) {
 		dao.insert(vo);
+	}
+
+	@Override
+	public List<BasicBoardVO> select() {
+		return dao.select();
 	}
 
 }

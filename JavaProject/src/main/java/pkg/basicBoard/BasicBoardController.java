@@ -1,6 +1,7 @@
 package pkg.basicBoard;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -51,10 +52,17 @@ public class BasicBoardController extends HttpServlet {
 
 			service.insert(boardVO);
 
-			response.sendRedirect(path + "/basicBoard/basicBoard_list.jsp");
+			response.sendRedirect(path + "/BasicBoardController?sw=S");
 
+		} else if (sw.equals("S")) {
+			
+			List<BasicBoardVO> li = service.select();
+			
+			request.setAttribute("li", li);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/basicBoard/basicBoard_list.jsp");
+			rd.forward(request, response);
 		}
-
 	}
 
 	/**
@@ -66,5 +74,4 @@ public class BasicBoardController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-
 }
