@@ -19,4 +19,11 @@ public class BasicBoardServiceImpl implements BasicBoardService {
 		return dao.select();
 	}
 
+	@Override
+	public void delete(int boardNumber) {
+		dao.delete(boardNumber);
+	}
+
 }
+
+

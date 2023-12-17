@@ -53,4 +53,17 @@ public class BasicBoardDaoImpl implements BasicBoardDao {
 		return li;
 	}
 
+	@Override
+	public void delete(int boardNumber) {
+		try {
+			conn = DBConnection.getConnection();
+			String SQL = "delete from basicBoard where boardNumber = ?";
+			pstmt = conn.prepareCall(SQL);
+			pstmt.setInt(1, boardNumber);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
 }

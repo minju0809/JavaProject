@@ -34,6 +34,7 @@ public class BasicBoardController extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		String sw = request.getParameter("sw");
+		
 		String path = request.getContextPath();
 
 		BasicBoardService service = new BasicBoardServiceImpl();
@@ -54,7 +55,7 @@ public class BasicBoardController extends HttpServlet {
 
 			response.sendRedirect(path + "/BasicBoardController?sw=S");
 
-		} else if (sw.equals("S")) {
+		} else if (sw.equals("S")) {  
 			
 			List<BasicBoardVO> li = service.select();
 			
@@ -62,7 +63,17 @@ public class BasicBoardController extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/basicBoard/basicBoard_list.jsp");
 			rd.forward(request, response);
+			
+		} else if (sw.equals("D")) {
+		
+			int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
+
+			service.delete(boardNumber);
+
+			response.sendRedirect(path + "/BasicBoardController?sw=S");
+
 		}
+		
 	}
 
 	/**

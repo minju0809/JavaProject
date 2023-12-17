@@ -6,4 +6,8 @@ public interface BasicBoardService {
 	void insert(BasicBoardVO vo);
 	
 	List<BasicBoardVO> select();
+	
+	void delete(int boardNumber);
 }
+
+

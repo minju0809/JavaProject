@@ -5,6 +5,7 @@
 <%@ page import="pkg.basicBoard.*" %>
 
 <% 
+@SuppressWarnings("unchecked")
 List<BasicBoardVO> li = (List<BasicBoardVO>) request.getAttribute("li");
 %>
 <section>
@@ -18,10 +19,11 @@ List<BasicBoardVO> li = (List<BasicBoardVO>) request.getAttribute("li");
 				<th>아이디</th>
 				<th>등록일자</th>
 				<th>조회수</th>
+				<th>삭제</th>
 			</tr>
 			<% 
 			for (BasicBoardVO vo : li) { 
-				int basicNumber = vo.getBoardNumber();
+				int boardNumber = vo.getBoardNumber();
 				String title = vo.getTitle();
 				String content = vo.getContent();
 				String id = vo.getId();
@@ -29,12 +31,13 @@ List<BasicBoardVO> li = (List<BasicBoardVO>) request.getAttribute("li");
 				int cnt = vo.getCnt();
 			%>
 			<tr>
-				<td><%=basicNumber %></td>
+				<td><%=boardNumber %></td>
 				<td><%=title %></td>
 				<td><%=content %></td>
 				<td><%=id %></td>
 				<td><%=regist_date %></td>
 				<td><%=cnt %></td>
+				<td><button onClick="window.location='./BasicBoardController?sw=D&boardNumber=<%=boardNumber %>'">삭제</button></td>
 			</tr>
 			<% } %>
 		</table>
@@ -42,3 +45,4 @@ List<BasicBoardVO> li = (List<BasicBoardVO>) request.getAttribute("li");
 </section>
 
 <%@ include file="/include/bottom.jsp" %>
+
