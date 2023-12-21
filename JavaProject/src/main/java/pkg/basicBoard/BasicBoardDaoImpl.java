@@ -28,7 +28,7 @@ public class BasicBoardDaoImpl implements BasicBoardDao {
 	}
 
 	@Override
-	public List<BasicBoardVO> select() {
+	public List<BasicBoardVO> getBoardList() {
 		List<BasicBoardVO> li = new ArrayList<>();
 		try {
 			conn = DBConnection.getConnection();
@@ -64,6 +64,31 @@ public class BasicBoardDaoImpl implements BasicBoardDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}		
+	}
+
+	@Override
+	public BasicBoardVO getBoard(int boardNumber) {
+		BasicBoardVO vo = null;
+		try {
+			conn = DBConnection.getConnection();
+			String SQL = "select * from basicBoard where boardNumber = ?";
+			pstmt = conn.prepareCall(SQL);
+			pstmt.setInt(1, boardNumber);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				vo = new BasicBoardVO();
+				vo.setBoardNumber(rs.getInt("boardNumber"));
+				vo.setId(rs.getString("id"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setRegist_date(rs.getString("regist_date"));
+				vo.setCnt(rs.getInt("cnt"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return vo;
 	}
 
 }

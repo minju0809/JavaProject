@@ -5,9 +5,11 @@ import java.util.List;
 public interface BasicBoardService {
 	void insert(BasicBoardVO vo);
 	
-	List<BasicBoardVO> select();
+	List<BasicBoardVO> getBoardList();
 	
 	void delete(int boardNumber);
+	
+	BasicBoardVO getBoard(int boardNumber);
 }
 
 

@@ -57,7 +57,7 @@ public class BasicBoardController extends HttpServlet {
 
 		} else if (sw.equals("S")) {  
 			
-			List<BasicBoardVO> li = service.select();
+			List<BasicBoardVO> li = service.getBoardList();
 			
 			request.setAttribute("li", li);
 			
@@ -72,8 +72,17 @@ public class BasicBoardController extends HttpServlet {
 
 			response.sendRedirect(path + "/BasicBoardController?sw=S");
 
+		} else if (sw.equals("Detail")) {  
+			
+			int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
+			
+			BasicBoardVO vo = service.getBoard(boardNumber);
+			
+			request.setAttribute("vo", vo);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/basicBoard/basicBoard_detail.jsp");
+			rd.forward(request, response);
 		}
-		
 	}
 
 	/**

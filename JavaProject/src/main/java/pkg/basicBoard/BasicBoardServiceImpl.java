@@ -15,13 +15,18 @@ public class BasicBoardServiceImpl implements BasicBoardService {
 	}
 
 	@Override
-	public List<BasicBoardVO> select() {
-		return dao.select();
+	public List<BasicBoardVO> getBoardList() {
+		return dao.getBoardList();
 	}
 
 	@Override
 	public void delete(int boardNumber) {
 		dao.delete(boardNumber);
+	}
+
+	@Override
+	public BasicBoardVO getBoard(int boardNumber) {
+		return dao.getBoard(boardNumber);
 	}
 
 }
