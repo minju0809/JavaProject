@@ -10,6 +10,8 @@ public interface BasicBoardService {
 	void delete(int boardNumber);
 	
 	BasicBoardVO getBoard(int boardNumber);
+	
+	void update(BasicBoardVO vo);
 }
 
 

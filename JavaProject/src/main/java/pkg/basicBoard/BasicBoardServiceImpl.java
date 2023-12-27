@@ -29,6 +29,11 @@ public class BasicBoardServiceImpl implements BasicBoardService {
 		return dao.getBoard(boardNumber);
 	}
 
+	@Override
+	public void update(BasicBoardVO vo) {
+		dao.update(vo);
+	}
+
 }
 
 

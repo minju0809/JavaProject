@@ -82,6 +82,22 @@ public class BasicBoardController extends HttpServlet {
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/basicBoard/basicBoard_detail.jsp");
 			rd.forward(request, response);
+			
+		} else if (sw.equals("U")) {
+			
+			int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+
+			BasicBoardVO boardVO = new BasicBoardVO();
+
+			boardVO.setBoardNumber(boardNumber);
+			boardVO.setTitle(title);
+			boardVO.setContent(content);
+
+			service.update(boardVO);
+
+			response.sendRedirect(path + "/BasicBoardController?sw=S");
 		}
 	}
 

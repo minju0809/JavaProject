@@ -91,4 +91,19 @@ public class BasicBoardDaoImpl implements BasicBoardDao {
 		return vo;
 	}
 
+	@Override
+	public void update(BasicBoardVO vo) {
+		try {
+			conn = DBConnection.getConnection();
+			String SQL = "update basicBoard set title=?, content=? where boardNumber = ?";
+			pstmt = conn.prepareCall(SQL);
+			pstmt.setString(1, vo.getTitle());
+			pstmt.setString(2, vo.getContent());
+			pstmt.setInt(3, vo.getBoardNumber());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

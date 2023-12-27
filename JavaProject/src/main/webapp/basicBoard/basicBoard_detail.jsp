@@ -15,34 +15,38 @@ int cnt = vo.getCnt();
 <section>
 	<div>
 		<h2>상세보기</h2>
-		<table border=1 width="300">
-			<tr>
-				<th>번호</th>
-				<td><%=boardNumber%></td>
-			</tr>
-			<tr>
+		<form action="<%=path%>/BasicBoardController">
+			<input type=hidden name="sw" value="U">
+			<table border=1 width="300">
+				<tr>
+					<th>번호</th>
+					<td><input type=text name="boardNumber" value=<%=boardNumber%> readonly /></td>
+				</tr>
+				<tr>
 
-				<th>아이디</th>
-				<td><%=id%></td>
-			</tr>
-			<tr>
-				<th>제목</th>
-				<td><%=title%></td>
-			</tr>
-			<tr>
+					<th>아이디</th>
+					<td><%=id%></td>
+				</tr>
+				<tr>
+					<th>제목</th>
+					<td><input type=text name="title" value=<%=title%> /></td>
+				</tr>
+				<tr>
 
-				<th>내용</th>
-				<td><%=content%></td>
-			</tr>
-			<tr>
+					<th>내용</th>
+					<td><input type=text name="content" value=<%=content%> /></td>
+				</tr>
+				<tr>
 
-				<td colspan=2 align=center>
-					<button onClick="window.location='./BasicBoardController?sw=S'">목록</button>	
-					<button
-						onClick="window.location='./BasicBoardController?sw=D&boardNumber=<%=boardNumber%>'">삭제</button>
-				</td>
-			</tr>
-		</table>
+					<td colspan=2 align=center>
+						<button onClick="window.location='./BasicBoardController?sw=S'">목록</button>
+						<input type=submit value="수정"/>
+						<button
+							onClick="window.location='./BasicBoardController?sw=D&boardNumber=<%=boardNumber%>'">삭제</button>
+					</td>
+				</tr>
+			</table>
+		</form>
 	</div>
 </section>
 
