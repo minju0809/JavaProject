@@ -12,6 +12,8 @@ public interface BasicBoardService {
 	BasicBoardVO getBoard(int boardNumber);
 	
 	void update(BasicBoardVO vo);
+	
+	void cntUpdate(int boardNumber);
 }
 
 

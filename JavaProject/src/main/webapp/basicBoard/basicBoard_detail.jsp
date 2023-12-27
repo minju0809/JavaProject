@@ -38,6 +38,11 @@ int cnt = vo.getCnt();
 				</tr>
 				<tr>
 
+					<th>조회수</th>
+					<td><%=cnt%></td>
+				</tr>
+				<tr>
+
 					<td colspan=2 align=center>
 						<button onClick="window.location='./BasicBoardController?sw=S'">목록</button>
 						<input type=submit value="수정"/>

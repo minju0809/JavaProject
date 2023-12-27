@@ -106,4 +106,17 @@ public class BasicBoardDaoImpl implements BasicBoardDao {
 		}
 	}
 
+	@Override
+	public void cntUpdate(int boardNumber) {
+		try {
+			conn = DBConnection.getConnection();
+			String SQL = "update basicBoard set cnt = cnt + 1 where boardNumber = ?";
+			pstmt = conn.prepareCall(SQL);
+			pstmt.setInt(1, boardNumber);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

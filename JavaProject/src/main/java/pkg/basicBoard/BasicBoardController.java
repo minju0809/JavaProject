@@ -76,6 +76,7 @@ public class BasicBoardController extends HttpServlet {
 			
 			int boardNumber = Integer.parseInt(request.getParameter("boardNumber"));
 			
+			service.cntUpdate(boardNumber);	
 			BasicBoardVO vo = service.getBoard(boardNumber);
 			
 			request.setAttribute("vo", vo);
